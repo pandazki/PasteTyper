@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/chrome-manifest.json",
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "paste-typer",
+  "description": "A minimum extension template. This template includes a manifest file.",
+  "author": "Your Name"
+}
