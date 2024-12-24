@@ -2,6 +2,10 @@
 
 A Chrome extension that helps you paste text with a typing animation effect, making it appear as if you're typing in real-time.
 
+![Demo](assets/PasteTyper-Demo.gif)
+
+![Settings](assets/PasteTyper-Setting.gif)
+
 ## Features
 
 - 🎭 Natural typing simulation
