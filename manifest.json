@@ -2,7 +2,37 @@
   "$schema": "https://json.schemastore.org/chrome-manifest.json",
   "manifest_version": 3,
   "version": "1.0",
-  "name": "paste-typer",
-  "description": "A minimum extension template. This template includes a manifest file.",
-  "author": "Your Name"
+  "name": "Paste Typer",
+  "description": "Simulates human-like typing when pasting clipboard content",
+  "author": "Pandazki",
+  "homepage_url": "https://github.com/Pandazki/paste-typer",
+  "action": {},
+  "permissions": [
+    "clipboardRead",
+    "commands",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "commands": {
+    "paste-type": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V"
+      },
+      "description": "Paste with typing simulation"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
 }

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paste Typer Settings</title>
+  <style>
+    body {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: #333;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .control-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #444;
+    }
+    
+    select, input[type="range"] {
+      width: 300px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    input[type="range"] {
+      padding: 0;
+    }
+    
+    .value-display {
+      display: inline-block;
+      min-width: 60px;
+      padding: 4px 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    
+    .demo-area {
+      margin-top: 20px;
+      position: relative;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+    }
+    
+    .demo-text {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      resize: none;
+      font-size: 14px;
+      line-height: 1.5;
+      background: #f9f9f9;
+      font-family: "Courier New", monospace;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .button-group {
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .primary-button {
+      background-color: #2196f3;
+      color: white;
+    }
+    
+    .primary-button:hover:not(:disabled) {
+      background-color: #1976d2;
+    }
+
+    .secondary-button {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+    
+    .secondary-button:hover:not(:disabled) {
+      background-color: #d0d0d0;
+    }
+    
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .success {
+      background-color: #dff0d8;
+      color: #3c763d;
+      display: block;
+    }
+    
+    .error {
+      background-color: #f2dede;
+      color: #a94442;
+      display: block;
+    }
+
+    .preview-status {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      background: #2196f3;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+
+    .preview-status.playing {
+      background: #4caf50;
+    }
+
+    .preview-status.paused {
+      background: #ff9800;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #666;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    .note code {
+      background: #e0e0e0;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+
+    .demo-text .cursor {
+      background-color: rgba(33, 150, 243, 0.2);
+      border-right: 2px solid #2196f3;
+      margin-right: -2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to {
+        border-color: #2196f3;
+      }
+      50% {
+        border-color: transparent;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Paste Typer Settings</h1>
+  
+  <div class="section">
+    <h2>Typing Configuration</h2>
+    <form id="settingsForm">
+      <div class="control-group">
+        <label for="strategy">Typing Strategy:</label>
+        <select id="strategy">
+          <option value="natural">Natural (with variations)</option>
+          <option value="uniform">Uniform Speed</option>
+          <option value="punctuated">Punctuated (pause at spaces)</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label for="baseSpeed">Base Typing Speed:</label>
+        <input type="range" id="baseSpeed" min="10" max="200" step="10">
+        <span id="baseSpeedValue" class="value-display">50ms</span>
+      </div>
+      
+      <div class="control-group">
+        <label for="randomization">Speed Randomization:</label>
+        <input type="range" id="randomization" min="0" max="100" step="5">
+        <span id="randomizationValue" class="value-display">50%</span>
+      </div>
+      
+      <div class="control-group">
+        <label for="spaceDelay">Space/Punctuation Delay Multiplier:</label>
+        <input type="range" id="spaceDelay" min="100" max="500" step="10">
+        <span id="spaceDelayValue" class="value-display">1.5x</span>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="primary-button" id="saveButton">
+          <span class="material-icons">save</span>
+          Save Settings
+        </button>
+        <button type="reset" class="secondary-button" id="resetButton">
+          <span class="material-icons">restart_alt</span>
+          Reset to Default
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="section">
+    <h2>Preview</h2>
+    <div class="demo-area">
+      <div id="previewStatus" class="preview-status">Ready</div>
+      <div class="demo-text" id="demoOutput" readonly></div>
+      <div class="button-group">
+        <button id="playButton" class="primary-button">
+          <span class="material-icons">play_arrow</span>
+          Play Preview
+        </button>
+        <button id="pauseButton" class="secondary-button" disabled>
+          <span class="material-icons">pause</span>
+          Pause
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Additional Information</h2>
+    <div class="note">
+      <p><strong>Keyboard Shortcut:</strong> The default shortcut is <code>Command+Shift+V</code> (Mac) or <code>Ctrl+Shift+V</code> (Windows/Linux).</p>
+      <p>To change it, visit <code>chrome://extensions/shortcuts</code>, find "Paste Typer", and set your preferred combination.</p>
+    </div>
+  </div>
+  
+  <div id="status" class="status"></div>
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="options.js"></script>
+</body>
+</html> 
