@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/chrome-manifest.json",
   "manifest_version": 3,
-  "version": "1.0",
+  "version": "0.1.0",
   "name": "Paste Typer",
   "description": "Simulates human-like typing when pasting clipboard content",
   "author": "Pandazki",
