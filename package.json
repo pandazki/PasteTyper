@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "extension dev",
     "start": "extension start",
-    "build": "extension build"
+    "build": "extension build",
+    "package": "pnpm build && cd dist && zip -r ../paste-typer.zip ."
   },
   "dependencies": {},
   "devDependencies": {
